@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
+import alimentos from './alimentos.json';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">         
-        
-          <a
-            className="App-link"
-            href="https://github.com/cleidimarviana/ReactStrap"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button>ReactStrap</Button>
-          </a>
-        </header>
+      <div>
+       <ListGroup>
+
+              {
+                Object.keys(alimentos).map(function(key) {
+                  return <ListGroup.Item>{alimentos[key].descricao}</ListGroup.Item>
+                }.bind(this))
+              }
+
+      </ListGroup>
+          <a href="https://ww2.ibge.gov.br/home/default.php"> Dados: IBGE (Tabelas de Composição Nutricional dos Alimentos Consumidos no Brasil)</a>
       </div>
     );
   }
