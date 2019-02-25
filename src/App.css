@@ -1,3 +1,6 @@
+
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One);
+
 .App {
   text-align: center;
 }
@@ -30,4 +33,27 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.masthead__content {
+  height: auto;
+  padding: 60px 0;
+}
+.hc-masthead__search {
+  max-width: 600px;
+  margin: auto;
+  line-height: 52px;
+}
+h1.heading__primary {
+  color: #DD2131;
+  background: -webkit-linear-gradient(180deg, rgb(55, 199, 26), rgb(51, 14, 184));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Fredoka One';
+  font-size: 50px;
+  line-height: 60px;
+  margin: 0 0 20px;
+}
+.list-group-item {
+  padding: 0 1.25rem!important;
 }
