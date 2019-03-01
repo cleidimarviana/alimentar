@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { InputGroup, FormControl, Button, ListGroup, Table, Container} from 'react-bootstrap';
+import { InputGroup, FormControl, Button, ListGroup, Table, Container, Modal} from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -20,11 +20,15 @@ class App extends Component {
     this.state = {
       locationResults: [],
       searchStr: '',
-      alimentos: []
+      alimentos: [],
+      show: false,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleSearch(event) {
@@ -67,6 +71,18 @@ class App extends Component {
     this.setState({ display: 'none' });
   }
 
+  handlerItemModal(element){
+    this.handleShow()
+    console.log(element);
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
 
   render() {
 
@@ -99,7 +115,7 @@ class App extends Component {
               Object.keys(alimentos).map(function (key) {
 
                 for (let i = 0; i < this.state.locationResults.length; i++) {
-                  if (this.state.locationResults[i] == alimentos[key].descricao) {
+                  if (this.state.locationResults[i] === alimentos[key].descricao) {
                     var preparacao = (alimentos[key].descricao_preparacao !== 'NAO SE APLICA') ? alimentos[key].descricao_preparacao : '';
                     return <ListGroup.Item onClick={()=>this.clickItemResult(alimentos[key])} action>{alimentos[key].descricao + " " + preparacao}</ListGroup.Item>;
                   }
@@ -115,7 +131,7 @@ class App extends Component {
         <thead>
           <tr>
             <th>#</th>
-            <th>Alimento</th>
+            <th >Alimento</th>
             <th>Energia (KCAL)</th>
             <th>Proteina(g)</th>
           </tr>
@@ -130,7 +146,7 @@ class App extends Component {
              
               return <tr>
                 <td>{idx+1}</td>
-                <td>{element.descricao}</td>
+                <td><a href="#" onClick={()=>this.handlerItemModal(element)}>{element.descricao}</a></td>
                 <td>{element.energia_kcal}</td>
                 <td>{element.proteina_g}</td>
             </tr>
@@ -144,6 +160,20 @@ class App extends Component {
          </tbody>
       </Table>        
       </div>
+      <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     );
   }
