@@ -1,6 +1,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Fredoka+One);
 
+
 .App {
   text-align: center;
 }
@@ -56,4 +57,58 @@ h1.heading__primary {
 }
 .list-group-item {
   padding: 0 1.25rem!important;
+}
+
+.popover{
+  max-width: 450px!important;
+  padding: 0!important;
+  font-size: 0.700rem!important;
+}
+
+.popover .table th, .table td {
+  padding: 3px!important;
+  vertical-align: top!important;
+  border-top: 1px solid #dee2e6!important;
+}
+.popover-body {
+  padding: 0!important;
+  color: #212529;
+}
+
+// Bootstrap 4 breakpoints
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
+// number of cards per line for each breakpoint
+$cards-per-line: (
+    xs: 1,
+    sm: 2,
+    md: 3,
+    lg: 4
+);
+
+.card-deck {
+  display: grid;
+ }
+
+@each $name, $breakpoint in $grid-breakpoints {
+	@media (min-width: $breakpoint) {
+		.card-deck {
+			grid-template-columns: repeat(map-get($cards-per-line, $name), 1fr);
+		}
+	}
+}
+
+span.heading__primary {
+  color: #DD2131;
+  background: -webkit-linear-gradient(120deg, #999,rgb(233, 15, 62) );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Fredoka One';
+  font-size: 32px;
 }
