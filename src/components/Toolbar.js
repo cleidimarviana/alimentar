@@ -10,22 +10,22 @@ class App extends Component {
 
         return (
             <Navbar className='navbar navbar-inverse  navbar-light bg-light'>
-             <div className="container">
-                <Link to="/"><Navbar.Brand href="#">
-                <span className="heading__primary">ALIMENTAR</span>
-                </Navbar.Brand></Link>
-                <Nav className="mr-auto">
-                    <Nav.Link> <Link to="/sobre">Sobre</Link></Nav.Link>
-                    <Nav.Link><Link to="/cursos">Cursos</Link> </Nav.Link>
-                    <Nav.Link><Link to="/buscar">Buscar</Link> </Nav.Link>
+                <div className="container">
+                    <Link class="navbar-brand" to="/">
+                        <span className="heading__primary">ALIMENTAR</span>
+                    </Link>
+                    <Nav className="mr-auto">
+                        <Link className='nav-link' to="/sobre">Sobre</Link>
+                        <Link className='nav-link' to="/cursos">Cursos</Link>
+                        <Link className='nav-link' to="/buscar">Buscar</Link>
 
-                </Nav>
-                <Form inline>
-                    {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                    </Nav>
+                    <Form inline>
+                        {/* <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                     <Button variant="outline-primary">Search</Button> */}
 
-                    <Link to="/adicionar"><Button variant="primary">Adicionar Receita</Button></Link>
-                </Form>
+                        <Link to="/adicionar"><Button variant="primary">Adicionar Receita</Button></Link>
+                    </Form>
                 </div>
             </Navbar>
         );
