@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import '../assets/styles/scss/App.scss';
 import { Link } from 'react-router-dom';
 
-import { Modal, Navbar, FormControl, Button, Form } from 'react-bootstrap';
+import { Modal, Navbar, FormControl, Button, Form, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag, faPlus } from '@fortawesome/free-solid-svg-icons'
 import ModalSearchIngredient from '../components/ModalSearchIngredient';
+import AddIngredient from '../components/AddIngredient';
 
 
 class AdicionarReceita extends Component {
@@ -42,8 +43,28 @@ class AdicionarReceita extends Component {
                         </Form.Text>
                     </Form.Group>
 
+                    <Form.Group>
+                        <Form.Label >Ingredientes</Form.Label>
+                    
+                    <AddIngredient></AddIngredient>
+
+                    </Form.Group>
+
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label >Ingredientes</Form.Label>
+
+                        <Row style={{ height: '60px' }}>
+
+                            <Col className='item-receita'>
+                                <Form.Control type="text" placeholder="Nome da receita" />
+                            </Col>
+                            <Col className='item-receita'>
+                                testa
+                            </Col>
+                            <Col className='item-receita'>
+                                teste
+                            </Col>
+                        </Row>
 
                         <Form.Text className="text-muted">
                             Clique no botão abaixo para escolher um ingrediente:
