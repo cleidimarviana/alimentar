@@ -96,9 +96,7 @@ class Buscar extends Component {
 
     var popover = (
       <Popover id="popover-basic" title={this.state.itemPopover.descricao}>
-        <Table bordered>
-
-  <tbody>
+        <Table bordered><tbody>
     {/* <tr>
       <td>DESCRIÇÃO NA REFERÊNCIA </td>
       <td>{this.state.itemPopover.descricao_preparacao}</td>

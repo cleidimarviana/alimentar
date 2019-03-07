@@ -44,29 +44,14 @@ class AdicionarReceita extends Component {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label >Ingredientes</Form.Label>
-                    
-                    <AddIngredient></AddIngredient>
+                        <Form.Label >Ingredientes</Form.Label>                    
+                        <AddIngredient></AddIngredient>
 
                     </Form.Group>
 
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label >Ingredientes</Form.Label>
-
-                        <Row style={{ height: '60px' }}>
-
-                            <Col className='item-receita'>
-                                <Form.Control type="text" placeholder="Nome da receita" />
-                            </Col>
-                            <Col className='item-receita'>
-                                testa
-                            </Col>
-                            <Col className='item-receita'>
-                                teste
-                            </Col>
-                        </Row>
-
-                        <Form.Text className="text-muted">
+                      
+                                              <Form.Text className="text-muted">
                             Clique no botão abaixo para escolher um ingrediente:
                         </Form.Text>
                         <Button onClick={this.handleShow} variant="light" size="sm">
