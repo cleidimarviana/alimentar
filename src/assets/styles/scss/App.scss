@@ -120,7 +120,7 @@ span.heading__primary {
   font-size: 18px;
 }
 .actions{
-  margin-top:4px;
+  margin:4px;
   width: 100%;
 }
 
@@ -144,4 +144,10 @@ span.heading__primary {
 .form-group.col, .col-6, .col-4{
   margin: 3px;
   background-color: #f4f4f4;
+  padding-bottom: 6px;
+}
+
+.add-ingredient{
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
 }

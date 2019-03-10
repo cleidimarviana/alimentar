@@ -14,21 +14,33 @@ class AdicionarReceita extends Component {
     constructor(props, context) {
         super(props, context);
 
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+        this.showAddIngredient = this.showAddIngredient.bind(this);
+        this.dismissAddIngredient = this.dismissAddIngredient.bind(this);
 
+        
         this.state = {
-            show: false,
+            showAddIngredient: false,
+            ingredientSelected: {}
         };
     }
 
-    handleClose() {
-        this.setState({ show: false });
+    dismissAddIngredient() {
+        this.setState({ showAddIngredient: false });
     }
 
-    handleShow() {
-        this.setState({ show: true });
+    showAddIngredient() {
+        this.setState(function(prevState) {
+			return {showAddIngredient: !prevState.showAddIngredient};
+		});
     }
+    selectIngredient(ingredient){
+        console.log(ingredient)
+        //this.setState({ ingredientSelected: ingredient });
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
 
     render() {
         return (
@@ -44,19 +56,23 @@ class AdicionarReceita extends Component {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label >Ingredientes</Form.Label>                    
-                        <AddIngredient></AddIngredient>
+                        <Form.Label >Ingredientes</Form.Label>
+                        <Button onClick={this.showAddIngredient} variant="light" size="sm">
+                            <FontAwesomeIcon icon={faPlus} />
+                        </Button >
+                        {this.state.showAddIngredient ? <AddIngredient
+                            show={this.showAddIngredient} selectIngredient={this.selectIngredient}
+                        >
+                        </AddIngredient> : null}
 
                     </Form.Group>
 
                     <Form.Group controlId="formBasicEmail">
-                      
-                                              <Form.Text className="text-muted">
+
+                        <Form.Text className="text-muted">
                             Clique no botão abaixo para escolher um ingrediente:
                         </Form.Text>
-                        <Button onClick={this.handleShow} variant="light" size="sm">
-                            <FontAwesomeIcon icon={faPlus} />
-                        </Button >
+
                     </Form.Group>
 
                     <Button variant="primary" type="submit">

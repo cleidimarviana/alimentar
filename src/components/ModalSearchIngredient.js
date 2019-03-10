@@ -9,7 +9,7 @@ import alimentos from '../alimentos.json';
 class ModalSearchIngredient extends Component {
 
     state = {
-        show: false,
+        showAddIngredient: false,
         searchStr: '',
         locationResults: [],
         alimentos: []
@@ -20,7 +20,7 @@ class ModalSearchIngredient extends Component {
         super(props, context);
 
         this.state = {
-            show: false,
+            showAddIngredient: false,
             searchStr: '',
             locationResults: [],
             alimentos: []

@@ -9,36 +9,41 @@ import alimentos from '../alimentos.json';
 class AddIngredient extends Component {
 
     state = {
-        show: false,
         searchStr: '',
         locationResults: [],
         alimentos: [],
-        itemDefaultValue: null,
         itemDescriptionValue: '',
-        itemPopover: {}
+        ingredientSelected: {},
+        formMeasure: '',
+        formQtde: '',
+        item: {}
     };
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            show: false,
             searchStr: '',
             locationResults: [],
             alimentos: [],
-            itemDefaultValue: null,
             itemDescriptionValue: '',
-            itemPopover: {}
+            ingredientSelected: {},
+            formMeasure: '',
+            formQtde: '',
+            item: {}
         };
 
         this.handleSearch = this.handleSearch.bind(this);
+
+        this.handleChange = this.handleChange.bind(this);
+
     }
-    cancelAdd = () => {
-        this.setState({ open: false });
-        if (this.props.origin === 'modal')
-            this.props.onHide({ show: false });
-        else
-            this.props.hiddenC();
-    }
+
+    handleChange(event) {
+        this.setState({[event.target.id]: event.target.value});
+
+        console.log(this.state);
+     }
+    
 
     handleSearch(event) {
 
@@ -51,42 +56,52 @@ class AddIngredient extends Component {
                     if (!this.state.locationResults.includes(alimentos[i].descricao))
                         this.state.locationResults.push(alimentos[i].descricao);
                 }
-
             }
         }
     }
     clickItemResult(item) {
-        console.log(item.descricao);
-        this.state.alimentos.push(item);
-        this.setState({ searchStr: item.descricao, alimentos: this.state.alimentos, itemDefaultValue: item, itemPopover: item });
+        this.state.ingredientSelected = item;
+        this.setState({ searchStr: item.descricao, alimentos: this.state.alimentos, ingredientSelected: item});
         this.state.locationResults = [];
         console.log(item);
 
     }
 
+    selectIngredient(){
+        console.log(this.state.ingredientSelected);
+       
+        var item = {
+            qtde: this.state.formQtde,
+            measure: this.state.formMeasure,
+            ingredient: this.state.ingredientSelected
+        }
+
+        console.log(item);
+    }
+ 
     render() {
         const convertmcg = 0.001;
 
         var popover = (
-            <Popover id="popover-basic" title={this.state.itemPopover.descricao}>
+            <Popover id="popover-basic" title={this.state.ingredientSelected.descricao}>
                 <Table bordered>
 
                     <tbody>
                         {/* <tr>
           <td>DESCRIÇÃO NA REFERÊNCIA </td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ENERGIA (kcal)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>PROTEÍNA (g)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>LIPÍDEOS TOTAIS (g)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>CARBOIDRATO (g)</td>
@@ -94,131 +109,131 @@ class AddIngredient extends Component {
         </tr>
         <tr>
           <td>FIBRA ALIMENTAR TOTAL (g)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>CÁLCIO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>MAGNÉSIO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>MANGANÊS (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>FÓSFORO (mg)</td>  
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>FERRO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>SÓDIO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>SÓDIO DE ADIÇÃO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>POTÁSSIO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>COBRE (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ZINCO (mg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>SELÊNIO (mcg)</td>
-          <td>{this.state.itemPopover.descricao_preparacao}</td>
+          <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>RETINOL (mcg)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr> */}
                         <tr>
                             <td>VITAMINA A (EQUIVALENTE DE ATIVIDADE DE RETINOL) (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_a_mcg?this.state.itemPopover.vitamina_a_mcg * convertmcg:this.state.itemPopover.vitamina_a_mcg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_a_mcg?this.state.ingredientSelected.vitamina_a_mcg * convertmcg:this.state.ingredientSelected.vitamina_a_mcg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B - TIAMINA (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_b_tiamina_mg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_b_tiamina_mg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B2 - RIBOFLAVINA (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_b2_riboflavina_mg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_b2_riboflavina_mg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B3 -NIACINA (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_b3_niacina_mg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_b3_niacina_mg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B3 - EQUIVALENTE DE NIACINA (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_b3_equivalente_niacina_mg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_b3_equivalente_niacina_mg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B6 - PIRIDOXINA (mg)</td>
-                            <td>{this.state.itemPopover.viamina_b12_pirodoxina_mcg}</td>
+                            <td>{this.state.ingredientSelected.viamina_b12_pirodoxina_mcg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B12 - COBALAMINA (mg)</td>
-                            <td>{this.state.itemPopover.viamina_b12_cobalamina_mcg * convertmcg}</td>
+                            <td>{this.state.ingredientSelected.viamina_b12_cobalamina_mcg * convertmcg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA C (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_c_mg * convertmcg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_c_mg * convertmcg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA D - CALCIFEROL- (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_d_calciferonol_mcg * convertmcg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_d_calciferonol_mcg * convertmcg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA E - TOTAL DE ALPHA-TOCOPHEROL (mg)</td>
-                            <td>{this.state.itemPopover.vitamina_e_total_alpha_tocopheronol_mg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_e_total_alpha_tocopheronol_mg}</td>
                         </tr>
                         {/* <tr>
           <td>COLESTEROL (mg)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ÁCIDOS GRAXOS SATURADOS (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ÁCIDOS GRAXOS MONOINSATURADOS (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ÁCIDOS GRAXOS POLIINSATURADOS (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ÁCIDO GRAXO POLIINSATURADO 18:2 (LINOLÉICO) (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ÁCIDO GRAXO POLIINSATURADO 18:3 (LINOLÊNICO) (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>ÁCIDOS GRAXOS TRANS TOTAL (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>AÇÚCAR TOTAL (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr>
         <tr>
           <td>AÇÚCAR DE ADIÇÃO (g)</td>
-           <td>{this.state.itemPopover.descricao_preparacao}</td>
+           <td>{this.state.ingredientSelected.descricao_preparacao}</td>
         </tr> */}
                     </tbody>
                 </Table>
@@ -227,29 +242,29 @@ class AddIngredient extends Component {
         return (
             <div>
 
-                <Form.Row>
+                <Form.Row className='add-ingredient'>
 
-                    <Form.Group as={Col} controlId="formGridZip">
+                    <Form.Group as={Col} controlId="formQtde">
                         <Form.Label>Quantidade</Form.Label>
-                        <Form.Control defaultValue='1' type='number' />
+                        <Form.Control key="formQtde" value={this.state.value} onChange={this.handleChange.bind(this)}  size="sm" defaultValue='1' type='number' />
                     </Form.Group>
-                    <Form.Group as={Col} xs="4" controlId="formGridState">
+                    <Form.Group as={Col} xs="4"  controlId="formMeasure">
                         <Form.Label>Medida Caseira</Form.Label>
-                        <Form.Control as="select">
-                            <option>Escolha uma opção...</option>
-                            <option>Grama(s)(g)</option>
-                            <option>Kilograma(s)(kg)</option>
-                            <option>Litro(s)(kg)</option>
-                            <option>Mililitro(s)(ml)</option>
+                        <Form.Control key="formMeasure" value={this.state.value} onChange={this.handleChange.bind(this)} size="sm" as="select">
+                            <option value='0'>Escolha uma opção...</option>
+                            <option value='g'>Grama(s)(g)</option>
+                            <option value='kg'>Kilograma(s)(kg)</option>
+                            <option value='l'>Litro(s)(l)</option>
+                            <option value='ml'>Mililitro(s)(ml)</option>
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group as={Col} xs="6" controlId="formGridCity">
+                    <Form.Group as={Col} xs="6" controlId="formIngredient">
                         <Form.Label>Alimento</Form.Label>
                         <a target='_blank' href='https://ww2.ibge.gov.br/home/estatistica/populacao/condicaodevida/pof/2008_2009_composicao_nutricional/default_zip.shtm' style={{ marginTop: '4px', float: 'right', fontSize: '11px' }}>Infomaçoes alimentares base IBGE</a>
 
                         <InputGroup>
-                            <Form.Control
+                            <Form.Control key="formIngredient"  size="sm"
                                 defaultValue={this.state.itemDescriptionValue}
                                 placeholder="Digite aqui o alimento..."
                                 aria-label="Qual alimento você deseja buscar?"
@@ -258,13 +273,13 @@ class AddIngredient extends Component {
                                 onChange={this.handleSearch}
                                 autocomplete="off"
                                 autoFocus />
-                            <InputGroup.Prepend hidden={this.state.itemDefaultValue === null}>
+                            {/* <InputGroup.Prepend hidden={this.state.itemDefaultValue === null}>
                                 <InputGroup.Text id="inputGroupPrepend">
                                     <OverlayTrigger trigger="click" overlay={popover} rootClose>
                                         <a href="#">info</a>
                                     </OverlayTrigger>
                                 </InputGroup.Text>
-                            </InputGroup.Prepend>
+                            </InputGroup.Prepend> */}
                         </InputGroup>
 
                         <div hidden={this.state.locationResults.length < 1} className='Select-menu-outer'>{
@@ -284,8 +299,8 @@ class AddIngredient extends Component {
                     </Form.Group>
 
                     <div className="actions">
-                        <Button onClick={this.addTaskAction} className="btnForm" style={{ float: 'right' }} variant="primary" >Adicionar ingrediente</Button>
-                        <Button onClick={this.cancelAdd} className="btnForm" variant="light" style={{ float: 'right' }}>Cancelar</Button>
+                        <Button  size="sm" onClick={()=>this.selectIngredient()} className="btnForm" style={{ float: 'right' }} variant="primary" >Adicionar ingrediente</Button>
+                        <Button  size="sm" onClick={()=>this.props.show()} className="btnForm" variant="light" style={{ float: 'right' }}>Cancelar</Button>
 
                     </div>
 
