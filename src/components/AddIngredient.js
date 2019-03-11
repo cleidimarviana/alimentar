@@ -39,11 +39,11 @@ class AddIngredient extends Component {
     }
 
     handleChange(event) {
-        this.setState({[event.target.id]: event.target.value});
+        this.setState({ [event.target.id]: event.target.value });
 
         console.log(this.state);
-     }
-    
+    }
+
 
     handleSearch(event) {
 
@@ -61,15 +61,14 @@ class AddIngredient extends Component {
     }
     clickItemResult(item) {
         this.state.ingredientSelected = item;
-        this.setState({ searchStr: item.descricao, alimentos: this.state.alimentos, ingredientSelected: item});
+        this.setState({ searchStr: item.descricao, alimentos: this.state.alimentos, ingredientSelected: item });
         this.state.locationResults = [];
         console.log(item);
 
     }
 
-    selectIngredient(){
-        console.log(this.state.ingredientSelected);
-       
+    selectIngredient() {
+
         var item = {
             qtde: this.state.formQtde,
             measure: this.state.formMeasure,
@@ -77,8 +76,16 @@ class AddIngredient extends Component {
         }
 
         console.log(item);
+
+        this.props.selectIngredient(item);        
     }
- 
+    getLocalData = () => {
+        return JSON.parse(localStorage.getItem('ingredients'));
+    }
+    setLocalData = (arr) => {
+        localStorage.setItem('ingredients', JSON.stringify(arr));
+    }
+
     render() {
         const convertmcg = 0.001;
 
@@ -161,7 +168,7 @@ class AddIngredient extends Component {
         </tr> */}
                         <tr>
                             <td>VITAMINA A (EQUIVALENTE DE ATIVIDADE DE RETINOL) (mg)</td>
-                            <td>{this.state.ingredientSelected.vitamina_a_mcg?this.state.ingredientSelected.vitamina_a_mcg * convertmcg:this.state.ingredientSelected.vitamina_a_mcg}</td>
+                            <td>{this.state.ingredientSelected.vitamina_a_mcg ? this.state.ingredientSelected.vitamina_a_mcg * convertmcg : this.state.ingredientSelected.vitamina_a_mcg}</td>
                         </tr>
                         <tr>
                             <td>VITAMINA B - TIAMINA (mg)</td>
@@ -246,9 +253,9 @@ class AddIngredient extends Component {
 
                     <Form.Group as={Col} controlId="formQtde">
                         <Form.Label>Quantidade</Form.Label>
-                        <Form.Control key="formQtde" value={this.state.value} onChange={this.handleChange.bind(this)}  size="sm" defaultValue='1' type='number' />
+                        <Form.Control key="formQtde" value={this.state.value} onChange={this.handleChange.bind(this)} size="sm" defaultValue='1' type='number' />
                     </Form.Group>
-                    <Form.Group as={Col} xs="4"  controlId="formMeasure">
+                    <Form.Group as={Col} xs="4" controlId="formMeasure">
                         <Form.Label>Medida Caseira</Form.Label>
                         <Form.Control key="formMeasure" value={this.state.value} onChange={this.handleChange.bind(this)} size="sm" as="select">
                             <option value='0'>Escolha uma opção...</option>
@@ -264,7 +271,7 @@ class AddIngredient extends Component {
                         <a target='_blank' href='https://ww2.ibge.gov.br/home/estatistica/populacao/condicaodevida/pof/2008_2009_composicao_nutricional/default_zip.shtm' style={{ marginTop: '4px', float: 'right', fontSize: '11px' }}>Infomaçoes alimentares base IBGE</a>
 
                         <InputGroup>
-                            <Form.Control key="formIngredient"  size="sm"
+                            <Form.Control key="formIngredient" size="sm"
                                 defaultValue={this.state.itemDescriptionValue}
                                 placeholder="Digite aqui o alimento..."
                                 aria-label="Qual alimento você deseja buscar?"
@@ -299,8 +306,8 @@ class AddIngredient extends Component {
                     </Form.Group>
 
                     <div className="actions">
-                        <Button  size="sm" onClick={()=>this.selectIngredient()} className="btnForm" style={{ float: 'right' }} variant="primary" >Adicionar ingrediente</Button>
-                        <Button  size="sm" onClick={()=>this.props.show()} className="btnForm" variant="light" style={{ float: 'right' }}>Cancelar</Button>
+                        <Button size="sm" onClick={() => this.selectIngredient()} className="btnForm" style={{ float: 'right' }} variant="primary" >Adicionar ingrediente</Button>
+                        <Button size="sm" onClick={() => this.props.show()} className="btnForm" variant="light" style={{ float: 'right' }}>Cancelar</Button>
 
                     </div>
 

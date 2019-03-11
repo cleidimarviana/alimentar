@@ -17,10 +17,11 @@ class AdicionarReceita extends Component {
         this.showAddIngredient = this.showAddIngredient.bind(this);
         this.dismissAddIngredient = this.dismissAddIngredient.bind(this);
 
-        
+
         this.state = {
             showAddIngredient: false,
-            ingredientSelected: {}
+            ingredientSelected: {},
+            ingredients: []
         };
     }
 
@@ -29,18 +30,27 @@ class AdicionarReceita extends Component {
     }
 
     showAddIngredient() {
-        this.setState(function(prevState) {
-			return {showAddIngredient: !prevState.showAddIngredient};
-		});
+        this.setState(function (prevState) {
+            return { showAddIngredient: !prevState.showAddIngredient };
+        });
     }
-    selectIngredient(ingredient){
-        console.log(ingredient)
+    selectIngredient = event => (ingredient) => {
+
+        console.log(ingredient);
+
+        var ingredients = this.state.ingredients;
+
+        ingredients.push(ingredient);
+       
+        this.setState({ ingredients: ingredients });
+
+        console.log(this.state.ingredients);
         //this.setState({ ingredientSelected: ingredient });
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
-      }
+        this.setState({ value: event.target.value });
+    }
 
     render() {
         return (
