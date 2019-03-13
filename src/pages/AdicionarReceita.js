@@ -17,6 +17,8 @@ class AdicionarReceita extends Component {
         this.showAddIngredient = this.showAddIngredient.bind(this);
         this.dismissAddIngredient = this.dismissAddIngredient.bind(this);
 
+        this.selectIngredient = this.selectIngredient.bind(this);
+
 
         this.state = {
             showAddIngredient: false,
@@ -34,18 +36,15 @@ class AdicionarReceita extends Component {
             return { showAddIngredient: !prevState.showAddIngredient };
         });
     }
-    selectIngredient = event => (ingredient) => {
+    selectIngredient(ingredient){
 
-        console.log(ingredient);
+        var list = this.state.ingredients;
 
-        var ingredients = this.state.ingredients;
-
-        ingredients.push(ingredient);
+        list.push(ingredient);
        
-        this.setState({ ingredients: ingredients });
+        this.setState({ ingredients: list });
 
-        console.log(this.state.ingredients);
-        //this.setState({ ingredientSelected: ingredient });
+        console.log(list);
     }
 
     handleChange(event) {
@@ -85,10 +84,19 @@ class AdicionarReceita extends Component {
 
                     </Form.Group>
 
+                    {this.state.ingredients.map((item, index) => (
+                        <div  key={index}> { item.qtde + item.measure+" de "+ item.ingredient.descricao}</div>
+                    ))}
+
+
                     <Button variant="primary" type="submit">
                         Salvar
                 </Button>
                 </Form>
+
+                
+              
+              
 
                 <Modal
                     backdrop="static"

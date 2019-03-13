@@ -64,7 +64,6 @@ class AddIngredient extends Component {
         this.setState({ searchStr: item.descricao, alimentos: this.state.alimentos, ingredientSelected: item });
         this.state.locationResults = [];
         console.log(item);
-
     }
 
     selectIngredient() {
@@ -75,9 +74,9 @@ class AddIngredient extends Component {
             ingredient: this.state.ingredientSelected
         }
 
-        console.log(item);
-
         this.props.selectIngredient(item);        
+
+        this.setState({formMeasure: '', formQtde: 1, item: {}});
     }
     getLocalData = () => {
         return JSON.parse(localStorage.getItem('ingredients'));
@@ -312,6 +311,8 @@ class AddIngredient extends Component {
                     </div>
 
                 </Form.Row>
+
+               
 
             </div>
         )
